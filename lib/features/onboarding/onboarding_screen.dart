@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_app/utils/app_images.dart';
 import 'package:flutter/material.dart';
 
+import '../login/login.dart';
+
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -33,7 +35,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _previousPage() {
-    if (_currentIndex > 0) {
+    if (_currentIndex == 0) {
+      Navigator.pop(context);
+    } else {
       _pageController.previousPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
@@ -50,9 +54,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _onFinish() {
-    if (Navigator.canPop(context)) {
-      Navigator.pop(context);
-    }
+    Navigator.pushReplacementNamed(context, LoginScreen.routeName);
   }
 
   @override
@@ -99,7 +101,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Back button
-                  _currentIndex > 0
+                  _currentIndex >= 0
                       ? IconButton(
                           onPressed: _previousPage,
                           icon: Icon(

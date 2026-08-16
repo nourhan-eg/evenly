@@ -1,30 +1,31 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../utils/app_images.dart';
-import '../../utils/firebase_functions.dart';
 import '../../utils/widgets/custom_text_field.dart';
-import '../register/register_screen.dart';
-import 'forget_password/forget_password_screen.dart';
 import '../home/home_screen.dart';
+import '../login/login.dart';
 
-class LoginScreen extends StatefulWidget {
-  static const String routeName = "login";
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  static const String routeName = "register";
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -45,29 +46,36 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 Center(
                   child: Image.asset(
                     eventlyLogo,
                     height: 50,
                   ),
                 ),
-                const SizedBox(height: 48),
+                const SizedBox(height: 24),
 
                 Text(
-                  "login_title".tr(),
+                  "register_title".tr(),
                   textAlign: TextAlign.start,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         color: primaryColor,
                         fontWeight: FontWeight.bold,
-                        fontSize: 24,
+                        fontSize: 22,
                       ),
                 ),
                 const SizedBox(height: 24),
 
                 CustomTextField(
+                  controller: _nameController,
+                  hintText: "register_name_hint".tr(),
+                  prefixIconData: Icons.person_outline_rounded,
+                ),
+                const SizedBox(height: 16),
+
+                CustomTextField(
                   controller: _emailController,
-                  hintText: "login_email_hint".tr(),
+                  hintText: "register_email_hint".tr(),
                   prefixImageAsset: AppImagesWhiteMode.smsIcon,
                   keyboardType: TextInputType.emailAddress,
                 ),
@@ -75,31 +83,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 CustomTextField(
                   controller: _passwordController,
-                  hintText: "login_password_hint".tr(),
+                  hintText: "register_password_hint".tr(),
                   prefixImageAsset: AppImagesWhiteMode.lockIcon,
                   isPassword: true,
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
 
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(
-                          context, ForgetPasswordScreen.routeName);
-                    },
-                    child: Text(
-                      "forget_password_question".tr(),
-                      style: GoogleFonts.poppins(
-                        color: primaryColor,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
+                CustomTextField(
+                  controller: _confirmPasswordController,
+                  hintText: "register_confirm_password_hint".tr(),
+                  prefixImageAsset: AppImagesWhiteMode.lockIcon,
+                  isPassword: true,
+                  validator: (value) {
+                    if (value != _passwordController.text) {
+                      return 'Passwords do not match';
+                    }
+                    return null;
+                  },
                 ),
-                const SizedBox(height: 47),
+                const SizedBox(height: 64),
 
                 SizedBox(
                   height: 54,
@@ -107,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         Navigator.pushReplacementNamed(
-                            context, HomeScreen.routeName);
+                            context, LoginScreen.routeName);
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -118,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       elevation: 5,
                     ),
                     child: Text(
-                      "login_button".tr(),
+                      "signup_button".tr(),
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -127,27 +129,32 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 48),
+                const SizedBox(height: 20),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "${"no_account_text".tr()} ",
+                      "${"have_account_text".tr()} ",
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            fontSize: 14,
-                        color: isDark ? Colors.white:Color(0xff686868) ,
+                            fontSize: 15,
+                            color: isDark ? Colors.white:Color(0xff686868) ,
                           ),
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, RegisterScreen.routeName);
+                        if (Navigator.canPop(context)) {
+                          Navigator.pop(context);
+                        } else {
+                          Navigator.pushReplacementNamed(
+                              context, LoginScreen.routeName);
+                        }
                       },
                       child: Text(
-                        "signup_link".tr(),
-                        style: GoogleFonts.poppins(
+                        "login_link".tr(),
+                        style: TextStyle(
                           color: primaryColor,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.bold,
                           fontSize: 16,
                           decoration: TextDecoration.underline,
                         ),
@@ -155,33 +162,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 32),
-                        Center(
-                          child: Text(
-                            "or_text".tr(),
-                            style: Theme.of(context).textTheme.titleMedium!.copyWith(color: primaryColor)
-                          ),
-                        ),
-
                 const SizedBox(height: 24),
+
+                Center(
+                  child: Text(
+                      "or_text".tr(),
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(color: primaryColor)
+                  ),
+                ),
+                const SizedBox(height: 24),
+
 
                 SizedBox(
                   height: 54,
                   child: OutlinedButton(
-                      onPressed: () async {
-                        try {
-                          await FirebaseFunctions().signInWithGoogle();
-                          if (context.mounted) {
-                            Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-                          }
-                        } catch (e) {
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(e.toString())),
-                            );
-                          }
-                        }
-
+                    onPressed: () {
+                      // Google sign-up action
                     },
                     style: OutlinedButton.styleFrom(
                       backgroundColor:
@@ -204,12 +200,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(width: 12),
                         Text(
-                          "login_with_google".tr(),
+                          "signup_with_google".tr(),
                           style:
                               Theme.of(context).textTheme.titleMedium?.copyWith(
                                     color: primaryColor,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 18,
+                                    fontSize: 16,
                                   ),
                         ),
                       ],

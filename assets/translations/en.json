@@ -18,5 +18,28 @@
 
   "next": "Next",
   "skip": "Skip",
-  "get_started": "Get started"
+  "get_started": "Get started",
+
+  "login_title": "Login to your account",
+  "login_email_hint": "Enter your email",
+  "login_password_hint": "Enter your password",
+  "forget_password_question": "Forget Password?",
+  "login_button": "Login",
+  "no_account_text": "Don't have an account?",
+  "signup_link": "Signup",
+  "or_text": "Or",
+  "login_with_google": "Login with Google",
+
+  "register_title": "Create your account",
+  "register_name_hint": "Enter your name",
+  "register_email_hint": "Enter your email",
+  "register_password_hint": "Enter your password",
+  "register_confirm_password_hint": "Confirm your password",
+  "signup_button": "Sign up",
+  "have_account_text": "Already have an account?",
+  "login_link": "Login",
+  "signup_with_google": "Sign up with Google",
+
+  "forget_password_title": "Forget Password",
+  "reset_password_button": "Reset password"
 }

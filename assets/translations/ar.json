@@ -18,5 +18,28 @@
 
   "next": "التالي",
   "skip": "تخطي",
-  "get_started": "ابدأ الآن"
+  "get_started": "ابدأ الآن",
+
+  "login_title": "سجل الدخول إلى حسابك",
+  "login_email_hint": "أدخل بريدك الإلكتروني",
+  "login_password_hint": "أدخل كلمة المرور",
+  "forget_password_question": "نسيت كلمة المرور؟",
+  "login_button": "تسجيل الدخول",
+  "no_account_text": "ليس لديك حساب؟",
+  "signup_link": "إنشاء حساب",
+  "or_text": "أو",
+  "login_with_google": "تسجيل الدخول باستخدام جوجل",
+
+  "register_title": "أنشئ حسابك",
+  "register_name_hint": "أدخل اسمك",
+  "register_email_hint": "أدخل بريدك الإلكتروني",
+  "register_password_hint": "أدخل كلمة المرور",
+  "register_confirm_password_hint": "أكد كلمة المرور",
+  "signup_button": "إنشاء حساب",
+  "have_account_text": "لديك حساب بالفعل؟",
+  "login_link": "تسجيل الدخول",
+  "signup_with_google": "إنشاء حساب باستخدام جوجل",
+
+  "forget_password_title": "نسيت كلمة المرور",
+  "reset_password_button": "إعادة تعيين كلمة المرور"
 }
