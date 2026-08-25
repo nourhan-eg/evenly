@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 
+import '../utils/app_images.dart';
+
 class EventCategory {
   final String id;
   final String nameKey;
   final IconData icon;
   final String imagePath;
+  final String darkImagePath;
 
   const EventCategory({
     required this.id,
     required this.nameKey,
     required this.icon,
     required this.imagePath,
+    required this.darkImagePath,
   });
+
+  String imageFor(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return isDark ? darkImagePath : imagePath;
+  }
 
   static EventCategory fromId(String? id) {
     return categories.firstWhere((c) => c.id == id);
@@ -26,44 +35,50 @@ class EventCategory {
 
   static const EventCategory all = EventCategory(
     id: "all",
-    nameKey: "all",
-    icon: Icons.grid_view,
+    nameKey: "All",
+    icon: Icons.grid_view_rounded,
     imagePath: "",
+    darkImagePath: "",
   );
 
   static const EventCategory sport = EventCategory(
     id: "sport",
-    nameKey: "sport",
+    nameKey: "Sport",
     icon: Icons.directions_bike,
-    imagePath: "assets/images/Sport.png",
+    imagePath: AppImagesWhiteMode.sport,
+    darkImagePath: AppImagesDarkMode.sport,
   );
 
   static const EventCategory birthday = EventCategory(
     id: "birthday",
-    nameKey: "birthday",
+    nameKey: "Birthday",
     icon: Icons.cake_outlined,
-    imagePath: "assets/images/Birthday.png",
+    imagePath: AppImagesWhiteMode.birthday,
+    darkImagePath: AppImagesDarkMode.birthday,
   );
 
   static const EventCategory meeting = EventCategory(
     id: "meeting",
-    nameKey: "meeting",
+    nameKey: "Meeting",
     icon: Icons.laptop_mac,
-    imagePath: "assets/images/Meeting.png",
+    imagePath: AppImagesWhiteMode.meeting,
+    darkImagePath: AppImagesDarkMode.meeting,
   );
 
   static const EventCategory bookClub = EventCategory(
     id: "book_club",
-    nameKey: "book_club",
+    nameKey: "Book_Club",
     icon: Icons.menu_book,
-    imagePath: "assets/images/Book Club.png",
+    imagePath: AppImagesWhiteMode.bookClub,
+    darkImagePath: AppImagesDarkMode.bookClub,
   );
 
   static const EventCategory exhibition = EventCategory(
     id: "exhibition",
-    nameKey: "exhibition",
+    nameKey: "Exhibition",
     icon: Icons.color_lens_outlined,
-    imagePath: "assets/images/Exhibition.png",
+    imagePath: AppImagesWhiteMode.exhibition,
+    darkImagePath: AppImagesDarkMode.exhibition,
   );
 
   /// Categories an event can belong to.

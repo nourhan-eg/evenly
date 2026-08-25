@@ -41,5 +41,11 @@
   "signup_with_google": "Sign up with Google",
 
   "forget_password_title": "Forget Password",
-  "reset_password_button": "Reset password"
+  "reset_password_button": "Reset password",
+  "welcome": "Welcome Back✨",
+  "dark_mode": "Dark Mode",
+  "home": "Home",
+  "favorite": "Favorite",
+  "profile": "Profile",
+  "logout": "Logout"
 }

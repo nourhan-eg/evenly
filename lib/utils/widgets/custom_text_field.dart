@@ -4,20 +4,26 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String hintText;
   final String? prefixImageAsset;
+  final Widget? suffixIcon;
   final IconData? prefixIconData;
   final bool isPassword;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final void Function(String)? onChanged;
+  final int maxLines ;
 
   const CustomTextField({
     super.key,
     this.controller,
+    this.onChanged,
+    this.suffixIcon,
     required this.hintText,
     this.prefixImageAsset,
     this.prefixIconData,
     this.isPassword = false,
     this.validator,
     this.keyboardType,
+    this.maxLines=1,
   });
 
   @override
@@ -57,6 +63,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       obscureText: widget.isPassword ? _obscureText : false,
       validator: widget.validator,
       keyboardType: widget.keyboardType,
+      maxLines: widget.maxLines,
       style: Theme.of(context).textTheme.titleSmall?.copyWith(
             fontSize: 16,
             color: isDark ? Colors.white : Colors.black87,
@@ -85,12 +92,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
               )
             : null,
         filled: true,
-        fillColor: isDark ? Colors.white.withOpacity(0.06) : Colors.white,
+        fillColor: isDark ? const Color(0xFF002D8F) : Colors.white,
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
-            color: isDark ? Colors.white24 : Colors.grey.shade300,
+            color: isDark ? const Color(0xFF002D8F) : Colors.grey.shade300,
             width: 1,
           ),
         ),

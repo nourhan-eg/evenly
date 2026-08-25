@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../utils/app_images.dart';
+import '../../utils/firebase_functions.dart';
 import '../../utils/widgets/custom_text_field.dart';
 import '../home/home_screen.dart';
 import '../login/login.dart';
@@ -106,12 +108,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(
                   height: 54,
                   child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        Navigator.pushReplacementNamed(
-                            context, LoginScreen.routeName);
-                      }
-                    },
+                      onPressed: () {
+                        if (!_formKey.currentState!.validate()) {
+                          return;
+                        }
+
+                        FirebaseFunctions.register(
+                          _nameController.text.trim(),
+                          _emailController.text.trim(),
+                          _passwordController.text,
+                              () {
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              LoginScreen.routeName,
+                                  (_) => false,
+                            );
+                          },
+                              (message) {
+                            Fluttertoast.showToast(
+                              msg: message,
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0,
+                            );
+                          },
+                        );
+                      },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primaryColor,
                       shape: RoundedRectangleBorder(
@@ -176,8 +201,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(
                   height: 54,
                   child: OutlinedButton(
-                    onPressed: () {
-                      // Google sign-up action
+                    onPressed: () async {
+                      final userCredential =
+                      await FirebaseFunctions().signUpWithGoogle();
+
+                      if (userCredential != null) {
+                        print("User: ${userCredential.user?.email}");
+
+                        // Navigate to Home
+                      }
                     },
                     style: OutlinedButton.styleFrom(
                       backgroundColor:

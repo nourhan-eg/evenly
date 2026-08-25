@@ -41,5 +41,11 @@
   "signup_with_google": "إنشاء حساب باستخدام جوجل",
 
   "forget_password_title": "نسيت كلمة المرور",
-  "reset_password_button": "إعادة تعيين كلمة المرور"
+  "reset_password_button": "إعادة تعيين كلمة المرور",
+  "welcome ": "أهلا بعودتك",
+  "dark_mode": " الوضع الداكن",
+  "home": "الرئيسية",
+  "favorite": "المفضلة",
+  "profile": "الملف الشخصي",
+  "logout": "تسجيل الخروج"
 }

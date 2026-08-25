@@ -1,8 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../../providers/theme_provider.dart';
 import '../../utils/app_images.dart';
 import '../../utils/firebase_functions.dart';
+import '../../providers/my_provider.dart';
 import '../../utils/widgets/custom_text_field.dart';
 import '../register/register_screen.dart';
 import 'forget_password/forget_password_screen.dart';
@@ -30,6 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<ThemeProvider>(context);
+    var userProvider = Provider.of<MyProvider>(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = Theme.of(context).primaryColor;
     final eventlyLogo = isDark
@@ -104,12 +110,35 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 54,
                   child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        Navigator.pushReplacementNamed(
-                            context, HomeScreen.routeName);
-                      }
-                    },
+                      onPressed: () {
+                        if (!_formKey.currentState!.validate()) {
+                          return;
+                        }
+
+                        FirebaseFunctions.login(
+                          _emailController.text.trim(),
+                          _passwordController.text,
+                              () async {
+                            await userProvider.initUser();
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              HomeScreen.routeName,
+                                  (r) => false,
+                            );
+                          },
+                              (message) {
+                            Fluttertoast.showToast(
+                              msg: message,
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0,
+                            );
+                          },
+                        );
+                      },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primaryColor,
                       shape: RoundedRectangleBorder(
