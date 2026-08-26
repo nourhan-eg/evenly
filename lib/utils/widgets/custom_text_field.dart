@@ -60,6 +60,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
     return TextFormField(
       controller: widget.controller,
+      onChanged: widget.onChanged,
       obscureText: widget.isPassword ? _obscureText : false,
       validator: widget.validator,
       keyboardType: widget.keyboardType,

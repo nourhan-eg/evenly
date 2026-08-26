@@ -31,7 +31,7 @@ class _FavTabState extends State<FavTab> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError == true) {
-          return Center(child: Text("Something went wrong"));
+          return Center(child: Text("something_went_wrong".tr()));
         }
 
         List<EventModel> data =
@@ -52,7 +52,7 @@ class _FavTabState extends State<FavTab> {
         List<EventModel> filteredData = searchText.isEmpty
             ? data
             : data
-            .where((event) => event.title!
+            .where((event) => event.title
             .toLowerCase()
             .contains(searchText.toLowerCase()))
             .toList();
@@ -70,7 +70,7 @@ class _FavTabState extends State<FavTab> {
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: "Search for event",
+                  hintText: "search_event".tr(),
                   hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: isDark?Colors.white:Color(0xff686868),
                   ),

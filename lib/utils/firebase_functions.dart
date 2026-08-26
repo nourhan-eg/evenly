@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -101,10 +102,15 @@ class FirebaseFunctions {
     docRef.set(model);
   }
 
-  static updateEvent(EventModel model) {
+  static Future<void> updateEvent(EventModel model) async {
     var collection = createEventsCollection();
 
-    collection.doc(model.id).update(model.toJson());
+    await collection.doc(model.id).update(model.toJson());
+  }
+
+  static Future<void> deleteEvent(String id) async {
+    var collection = createEventsCollection();
+    await collection.doc(id).delete();
   }
 
   static Stream<QuerySnapshot<EventModel>> getfavEvents() {
@@ -158,7 +164,7 @@ class FirebaseFunctions {
         onSuccess();
       } else {
         await FirebaseAuth.instance.signOut();
-        onError("Please verify your email, check your mailbox");
+        onError("email_verification_sent".tr());
       }
     } on FirebaseAuthException catch (e) {
       print(e.toString());

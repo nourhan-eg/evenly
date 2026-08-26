@@ -111,7 +111,7 @@ class _HomeTabState extends State<HomeTab> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError == true) {
-                return Center(child: Text("Something went wrong"));
+                return Center(child: Text("something_went_wrong".tr()));
               }
 
               List<EventModel> data =
@@ -121,7 +121,7 @@ class _HomeTabState extends State<HomeTab> {
                       [];
 
               if (data.isEmpty) {
-                return Center(child: Text("No events found"));
+                return Center(child: Text("no_events_found".tr()));
               }
               return ListView.separated(
                 padding: const EdgeInsets.all(16),

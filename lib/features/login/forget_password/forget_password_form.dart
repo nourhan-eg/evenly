@@ -55,7 +55,7 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
             isPassword: true,
             validator: (value) {
               if (value != _passwordController.text) {
-                return 'Passwords do not match';
+                return 'password_not_matched'.tr();
               }
               return null;
             },
@@ -70,7 +70,7 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
                 if (_formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: const Text('Password reset successfully'),
+                      content: Text('password_reset_success'.tr()),
                       backgroundColor: primaryColor,
                     ),
                   );

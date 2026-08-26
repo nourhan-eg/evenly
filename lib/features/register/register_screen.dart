@@ -98,7 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   isPassword: true,
                   validator: (value) {
                     if (value != _passwordController.text) {
-                      return 'Passwords do not match';
+                      return 'password_not_matched'.tr();
                     }
                     return null;
                   },

@@ -25,7 +25,11 @@ class _EventCardState extends State<EventCard> {
 
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context , EventDetailsScreen.routeName);
+        Navigator.pushNamed(
+          context,
+          EventDetailsScreen.routeName,
+          arguments: widget.event,
+        );
       },
       child: Container(
         padding: const EdgeInsets.all(8),

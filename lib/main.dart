@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently_app/features/event_details/edit_event.dart';
 import 'package:evently_app/features/event_details/event_details_screen.dart';
 import 'package:evently_app/features/home/home_screen.dart';
 import 'package:evently_app/features/login/forget_password/forget_password_screen.dart';
@@ -68,7 +69,8 @@ class MyApp extends StatelessWidget {
         ForgetPasswordForm.routeName: (context) => const ForgetPasswordForm(),
         HomeScreen.routeName: (context) => const HomeScreen(),
         AddEventScreen.routeName: (context) => const AddEventScreen(),
-        EventDetailsScreen.routeName:(context) => const EventDetailsScreen()
+        EventDetailsScreen.routeName: (context) => const EventDetailsScreen(),
+        EditEvent.routeName: (context) => const EditEvent(),
       },
     );
   }

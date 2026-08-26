@@ -81,7 +81,7 @@ class _ProfileTabState extends State<ProfileTab> {
           children: [
             ListTile(
               leading: const Icon(Icons.photo_library),
-              title: const Text('Gallery'),
+              title: Text('gallery'.tr()),
               onTap: () {
                 Navigator.pop(sheetContext);
                 _pickImage(ImageSource.gallery, userProvider);
@@ -89,7 +89,7 @@ class _ProfileTabState extends State<ProfileTab> {
             ),
             ListTile(
               leading: const Icon(Icons.photo_camera),
-              title: const Text('Camera'),
+              title: Text('camera'.tr()),
               onTap: () {
                 Navigator.pop(sheetContext);
                 _pickImage(ImageSource.camera, userProvider);
